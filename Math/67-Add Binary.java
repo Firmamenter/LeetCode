@@ -9,7 +9,7 @@ b = "1"
 Return "100".
 
 Solution: Use carrier to emulate bianry operation. For k based addition operation, the rule is to add two digits and 
-          the carrier. Then the summation divided by k to obtain the carrier and summation mod k to get the result for
+          the carrier. Then the summation is divided by k to obtain the carrier and summation mod k to get the result for
           that digit.
 */
 
