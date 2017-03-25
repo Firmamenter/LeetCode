@@ -11,6 +11,7 @@ Return "100".
 Solution: Use carrier to emulate bianry operation. For k based addition operation, the rule is to add two digits and 
           the carrier. Then the summation is divided by k to obtain the carrier and summation mod k to get the result for
           that digit.
+          K based addition, the carrier is always no larger than k-1.
 */
 
 public class Solution {
