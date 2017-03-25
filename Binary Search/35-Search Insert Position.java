@@ -11,6 +11,8 @@ Here are few examples.
 [1,3,5,6], 2 → 1
 [1,3,5,6], 7 → 4
 [1,3,5,6], 0 → 0
+
+Solution: Binary Search. Please remember this template.
 */
 
 
