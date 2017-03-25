@@ -1,3 +1,11 @@
+/**
+9.Palindrome Number
+
+Determine whether an integer is a palindrome. Do this without extra space.
+
+Solution: Use double pointers start and end.
+*/
+
 {
     public boolean isPalindrome(int x) {
         // negative integer is not a palindrome
