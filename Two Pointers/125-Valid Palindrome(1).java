@@ -7,7 +7,7 @@ For example,
 "A man, a plan, a canal: Panama" is a palindrome.
 "race a car" is not a palindrome.
 
-Solution: Two pointers. Character.isLetterOrDigit(s.charAt(i)).
+Solution: Two pointers. 1) Character.isLetterOrDigit(s.charAt(i)). 2) 'a' <= s.charAt(i) && s.charAt(i) <= 'z'.
 */
 
 
