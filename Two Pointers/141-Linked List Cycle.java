@@ -7,6 +7,9 @@ Follow up:
 Can you solve it without using extra space?
 
 Solution: Two Pointers with different speed. 
+
+Why can the faster pointer catch up the slower pointer? By induction. Each step, the distance between faster pointer and
+slower pointer will decrease by 1.
 */
 
 /**
