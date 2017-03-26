@@ -14,6 +14,9 @@ Given "foo", "bar", return false.
 
 Given "paper", "title", return true.
 
+Note:
+You may assume both s and t have the same length.
+
 Solution: HashTable.
 */
 
