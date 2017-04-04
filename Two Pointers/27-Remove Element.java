@@ -15,10 +15,7 @@ Your function should return length = 2, with the first two elements of nums bein
 Sol: two pointer.
 */
 public class Solution {
-    public int removeElement(int[] nums, int val) {
-      if (nums.length == 0 || nums == null) {
-          return 0; 
-      }
+  public int removeElement(int[] nums, int val) {
         int left = 0; 
         int right = nums.length - 1; 
         while (left <= right) {
