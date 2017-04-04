@@ -16,9 +16,12 @@ Sol: two pointer.
 */
 public class Solution {
     public int removeElement(int[] nums, int val) {
+      if (nums.length == 0 || nums == null) {
+          return 0; 
+      }
         int left = 0; 
         int right = nums.length - 1; 
-        while (left < right) {
+        while (left <= right) {
             if (nums[right] == val) {
                 right--;
             } else if (nums[left] == val) {
