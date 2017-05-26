@@ -18,44 +18,29 @@ Solution: Binary Search. Please remember this template.
 
 public class Solution {
     public int searchInsert(int[] nums, int target) {
-        if (nums.length == 0) {
+        if (nums == null || nums.length == 0) {
             return 0; 
         }
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] >= target) {
-                return i; 
+        int start = 0; 
+        int end = nums.length - 1; 
+        int mid; 
+        while (start + 1 < end) {
+            mid = start + (end - start) / 2; 
+            if (nums[mid] == target) {
+                return mid; 
+            } else if (nums[mid] < target) {
+                start = mid; 
+            }
+            else {
+                end = mid; 
             }
         }
-        return nums.length;
-    }
-}
-
-public class Solution {
-    public int searchInsert(int[] nums, int target) {
-        if (nums.length == 0) {
-            return 0;
-        }
-        int left = 0;
-        int right = nums.length - 1;
-        int middle;
-        while (left + 1 < right) {
-            middle = left + (right - left) / 2;
-            if (nums[middle] == target) {
-                return middle; 
-            }
-            else if (nums[middle] > target) {
-                right = middle;
-            } else {
-                left = middle; 
-            }
-        }
-        
-        if (nums[left] >= target) {
-            return left; 
-        } else if (nums[right] >= target) {
-            return right; 
+        if (nums[start] >= target) {
+            return start; 
+        } else if (nums[end] >= target) {
+            return end; 
         } else {
-            return nums.length; 
+            return end + 1; 
         }
     }
 }
