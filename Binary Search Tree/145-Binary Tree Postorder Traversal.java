@@ -1,7 +1,7 @@
 /**
-144. Binary Tree Preorder Traversal
+145. Binary Tree Postorder Traversal
 
-Given a binary tree, return the preorder traversal of its nodes' values.
+Given a binary tree, return the postorder traversal of its nodes' values.
 
 For example:
 Given binary tree {1,#,2,3},
@@ -10,11 +10,11 @@ Given binary tree {1,#,2,3},
      2
     /
    3
-return [1,2,3].
+return [3,2,1].
 
 Note: Recursive solution is trivial, could you do it iteratively?
 
-Solution: Iterate, traversal, divide & conquer.
+Solution: Traversal, Divide & Conquer, Iterate.
 */
 
 /**
@@ -30,43 +30,43 @@ Solution: Iterate, traversal, divide & conquer.
 //Solution 1: Traversal
 //Time: O(n)    Space: O(1)
 public class Solution {
-    public List<Integer> preorderTraversal(TreeNode root) {
+    public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> result = new ArrayList<>(); 
-        preorder(result, root); 
+        postOrder(result, root);
         return result; 
     }
     
-    private void preorder(List<Integer> result, TreeNode root) {
+    private void postOrder(List<Integer> result, TreeNode root) {
         if (root == null) {
-            return null; 
+            return; 
         }
         
-        result.add(root.val); 
-        preorder(result, root.left); 
-        preorder(result, root.right); 
+        postOrder(result, root.left); 
+        postOrder(result, root.right); 
+        result.add(root.val);
     }
 }
 
 //Solution 2: Divide & Conquer
 //Time: O(n)    Space: O(logn)(balanced tree) or O(n)(worst case, biased tree)
 public class Solution {
-    public List<Integer> preorderTraversal(TreeNode root) {
+    public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> result = new ArrayList<>(); 
         if (root == null) {
             return result; 
         }
         
         List<Integer> leftResult = new ArrayList<>(); 
-        List<Integer> rightResult = new ArrayList<>();
+        List<Integer> rightResult = new ArrayList<>(); 
         
         //Divide
-        leftResult = preorderTraversal(root.left); 
-        rightResult = preorderTraversal(root.right);
+        leftResult = postorderTraversal(root.left); 
+        rightResult = postorderTraversal(root.right); 
         
         //Conquer
-        result.add(root.val); 
         result.addAll(leftResult); 
         result.addAll(rightResult); 
+        result.add(root.val); 
         
         return result; 
     }
@@ -75,8 +75,8 @@ public class Solution {
 //Solution 3: Iterate
 //Time: O(n)    Space: O(logn)(balanced tree) or O(n)(worst case, biased tree)
 public class Solution {
-    public List<Integer> preorderTraversal(TreeNode root) {
-        List<Integer> result = new ArrayList<>();
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>(); 
         Stack<TreeNode> stack = new Stack<>(); 
         
         if (root == null) {
@@ -86,17 +86,17 @@ public class Solution {
         stack.push(root); 
         
         while (!stack.empty()) {
-            TreeNode temp = stack.pop();
+            TreeNode temp = stack.pop(); 
             result.add(temp.val); 
-            if (temp.right != null) {
-                stack.push(temp.right); 
-            }
             if (temp.left != null) {
                 stack.push(temp.left); 
             }
+            if (temp.right != null) {
+                stack.push(temp.right); 
+            }
         }
         
+        Collections.reverse(result); 
         return result; 
     }
 }
-
