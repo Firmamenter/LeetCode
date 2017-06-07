@@ -17,7 +17,7 @@ return its level order traversal as:
   [15,7]
 ]
 
-Solution: BFS template. Remember it!
+Solution: BFS template. BFS will definitely use Queue! Remember it!
 */
 
 /**
