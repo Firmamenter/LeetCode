@@ -29,6 +29,7 @@ Solution: BFS template. BFS will definitely use Queue! Remember it!
  *     TreeNode(int x) { val = x; }
  * }
  */
+//BFS
 public class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> result = new ArrayList<>(); 
@@ -57,5 +58,29 @@ public class Solution {
         }
         
         return result; 
+    }
+}
+
+//DFS
+public class Solution {
+    private int maxLevel = 0; 
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>(); 
+        helper(root, 0, res);
+        return res; 
+    }
+    
+    private void helper(TreeNode root, int height, List<List<Integer>> res) {
+        if (root == null) {
+            return; 
+        }
+        
+        if (res.size() <= height) {
+            res.add(new ArrayList<Integer>()); 
+        }
+        
+        res.get(height).add(root.val); 
+        helper(root.left, height + 1, res); 
+        helper(root.right, height + 1, res); 
     }
 }
