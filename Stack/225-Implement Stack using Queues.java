@@ -12,7 +12,7 @@ You must use only standard operations of a queue -- which means only push to bac
 Depending on your language, queue may not be supported natively. You may simulate a queue by using a list or deque (double-ended queue), as long as you use only standard operations of a queue.
 You may assume that all operations are valid (for example, no pop or top operations will be called on an empty stack).
 
-Solution: O(n) push, other operations are O(1).
+Solution: O(n) push, other operations are O(1). 
 */
 
 //My version.
@@ -101,28 +101,37 @@ public class MyStack {
 }
 
 //Simulating LinkedList O(1) time complexity.
-class MyStack {
+public class MyStack {
+    private Queue queue; 
 
-    private Queue queue;
-
+    /** Initialize your data structure here. */
+    public MyStack() {
+        
+    }
+    
+    /** Push element x onto stack. */
     public void push(int x) {
-        Queue q = new LinkedList();     // could be any queue type, see note above
-        q.add(x);
-        q.add(queue);
-        queue = q;
+        Queue q = new LinkedList(); 
+        q.offer(x); 
+        q.offer(queue); 
+        queue = q; 
     }
-
-    public void pop() {
-        queue.remove();
-        queue = (Queue) queue.peek();
+    
+    /** Removes the element on top of the stack and returns that element. */
+    public int pop() {
+        int res = (int) queue.poll(); 
+        queue = (Queue) queue.peek(); 
+        return res; 
     }
-
+    
+    /** Get the top element. */
     public int top() {
-        return (int) queue.peek();
+        return (int) queue.peek(); 
     }
-
+    
+    /** Returns whether the stack is empty. */
     public boolean empty() {
-        return queue == null;
+        return queue == null; 
     }
 }
 
