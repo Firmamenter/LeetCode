@@ -34,7 +34,7 @@ The substring with start index = 2 is "ab", which is an anagram of "ab".
 Solution: Use hashTable to store the number of different characters in target string p and source string s, then compare them. If matched record index, otherwise sliding window.
 */
 
-//Time O(n)(Because the size of hashTable is at most 26!!!)    Space O(n)
+//Time O(n)(Because the size of hashTable is at most 26!!!)    Space O(1)
 //Tricks: 1.Use Map.Entry to iterate map, instead of Entry.     2.Use equals to determine whether two Character varibales are equal.
 //        3.Be careful about the time complexity, whenever you encounter a problem dealing with characters, you shall remember that there are at most 26 letters in English.
 public class Solution {

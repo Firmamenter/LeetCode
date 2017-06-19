@@ -21,7 +21,7 @@ Solution: HashTable.
 */
 
 
-#1
+//#1
 public class Solution {
     public boolean isIsomorphic(String s, String t) {
         HashMap map = new HashMap();
@@ -40,7 +40,7 @@ public class Solution {
     }
 }
 
-#2
+//#2
 public class Solution {
     public boolean isIsomorphic(String s, String t) {
         if(s == null || s.length() <= 1) return true;
