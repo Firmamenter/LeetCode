@@ -31,6 +31,7 @@ Solution: Remember the inserted node will always be leaf!
  *     }
  * }
  */
+//Time O(h)   Space O(h)
 public class Solution {
     /**
      * @param root: The root of the binary search tree.
@@ -62,5 +63,43 @@ public class Solution {
         }
         
         return root; 
+    }
+}
+
+//Time O(h)   Space O(1)
+public class Solution {
+    public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
+        if (root == null) {
+            return root; 
+        }
+        TreeNode cur = root; 
+        TreeNode successor = null; 
+        while (cur != null && cur.val != p.val) {
+            if (p.val < cur.val) {
+                successor = cur; 
+                cur = cur.left; 
+            } else {
+                cur = cur.right; 
+            }
+        }
+        
+        if (cur == null) {
+            return cur; 
+        }
+        
+        if (cur.right == null) {
+            return successor; 
+        }
+        
+        if (cur.right.left == null) {
+            return cur.right; 
+        }
+        
+        TreeNode ite = cur.right; 
+        while (ite.left != null) {
+            ite = ite.left; 
+        }
+        
+        return ite; 
     }
 }
