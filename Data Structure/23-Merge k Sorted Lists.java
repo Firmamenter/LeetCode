@@ -15,7 +15,7 @@ Given lists:
 ],
 return -1->2->4->null.
 
-Solution: Max heap.
+Solution: Min heap.
 */
 
 /**

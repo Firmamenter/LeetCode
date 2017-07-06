@@ -6,7 +6,7 @@ Implement a data structure, provide two interfaces:
 add(number). Add a new number in the data structure.
 topk(). Return the top k largest numbers in this data structure. k is given when we create the data structure.
 
-Solution: Max Heap + sort.
+Solution: Min Heap + sort.
 */
 
 public class Solution {

@@ -15,7 +15,7 @@ return 5
 
 Solve it in O(k log n) time where n is the bigger one between row size and column size.
 
-Solution: Max heap.
+Solution: Min heap.
 */
 
 public class Solution {
