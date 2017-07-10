@@ -12,40 +12,42 @@ Solution: DP, be careful about the way of calculating Palindrome.
 */
 
 public class Solution {
-    private boolean[][] getPalindrome (String s) {
-        boolean[][] res = new boolean[s.length()][s.length()]; 
-        for (int i = 0; i < s.length(); i++) {
-            res[i][i] = true; 
+    private boolean[][] getPalindrome(String s) {
+        int len = s.length(); 
+        boolean[][] isPalindrome = new boolean[len][len]; 
+        for (int i = 0; i < len; i++) {
+            isPalindrome[i][i] = true; 
         }
-        for (int i = 0; i < s.length() - 1; i++) {
-            res[i][i + 1] = (s.charAt(i) == s.charAt(i + 1)); 
+        for (int i = 0; i < len - 1; i++) {
+            isPalindrome[i][i + 1] = (s.charAt(i) == s.charAt(i + 1)); 
         }
-        for (int len = 2; len < s.length(); len++) {
-            for (int start = 0; start + len < s.length(); start++) {
-                res[start][len] = (res[start + 1][len - 1]) && (s.charAt(start) == s.charAt(start + len)); 
+        for (int length = 2; length < len; length++) {
+            for (int start = 0; start < len - length; start++) {
+                isPalindrome[start][start + length] = (isPalindrome[start + 1][start + length - 1]) && (s.charAt(start) == s.charAt(start + length)); 
             }
         }
-        
-        return res; 
+        return isPalindrome; 
     }
     
     public int minCut(String s) {
         if (s == null || s.length() == 0) {
             return 0; 
         }
-        boolean[][] isPalindrome = getPalindrome(s);  
-        
-        int[] min = new int[s.length() + 1]; 
+        boolean[][] isPalindrome = getPalindrome(s); 
+        int[] min = new int[s.length()]; 
         min[0] = 0; 
-        for (int i = 1; i <= s.length(); i++) {
+        for (int i = 1; i < s.length(); i++) {
             min[i] = Integer.MAX_VALUE; 
             for (int j = 0; j < i; j++) {
-                if (isPalindrome[j][i - 1]) {
+                if (j == 0 && isPalindrome[j][i]) {
+                    min[i] = 0; 
+                    break; 
+                }
+                if (min[j] != Integer.MAX_VALUE && isPalindrome[j + 1][i]) {
                     min[i] = Math.min(min[i], min[j] + 1); 
                 }
             }
         }
-        
-        return min[s.length()] - 1; 
+        return min[s.length() - 1]; 
     }
 }
