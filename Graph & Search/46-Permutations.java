@@ -17,6 +17,7 @@ For example,
 Solution: DFS, permutation template. All leaf nodes are results.
 */
 
+//Time O(n!) O(n*n!) O(n^2 * n!)
 public class Solution {
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> res = new ArrayList<>(); 
