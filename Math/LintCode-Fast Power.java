@@ -13,6 +13,7 @@ Challenge
 O(logn)
 
 Solution: Be careful about stack overflow. 
+          (a * b) % c = ((a % c) * (b % c)) % c. 
 */
 
 class Solution {
@@ -28,10 +29,10 @@ class Solution {
             return a % b; 
         }
         
-        long half = fastPower(a, b, n / 2); 
+        long half = fastPower(a, b, n / 2); // Avoid stack overflow.
         half = (half * half) % b; 
         if (n % 2 == 0) {
-            return (int)(half % b); 
+            return (int)half; 
         } else {
             return (int)((half * (a % b)) % b); 
         }
