@@ -29,7 +29,7 @@ class Solution {
             return a % b; 
         }
         
-        long half = fastPower(a, b, n / 2); // Avoid stack overflow.
+        long half = fastPower(a, b, n / 2); 
         half = (half * half) % b; 
         if (n % 2 == 0) {
             return (int)half; 

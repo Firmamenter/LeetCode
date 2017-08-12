@@ -51,12 +51,12 @@ public class Solution {
         while (left < right) {
             if (heights[left] < heights[right]) {
                 int leftHeight = heights[left++]; 
-                while (left < right && heights[left] < leftHeight) {
+                while (heights[left] < leftHeight) {
                     area += leftHeight - heights[left++]; 
                 }
             } else {
                 int rightHeight = heights[right--]; 
-                while (left < right && heights[right] < rightHeight) {
+                while (heights[right] < rightHeight) {
                     area += rightHeight - heights[right--]; 
                 }
             }
