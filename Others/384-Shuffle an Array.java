@@ -18,9 +18,10 @@ solution.reset();
 // Returns the random shuffling of array [1,2,3].
 solution.shuffle();
 
-Solution: Reservoir sampling. 
+Solution: Reservoir sampling. Fisher-Yates Algorithm. 
 */
 
+// O(n^2). Reservoir Sampling. 
 public class Solution {
     private int[] org; 
     
@@ -62,6 +63,44 @@ public class Solution {
         }
         list.remove(pos); 
         return flag; 
+    }
+}
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution obj = new Solution(nums);
+ * int[] param_1 = obj.reset();
+ * int[] param_2 = obj.shuffle();
+ */
+
+
+// O(n). Fisher-Yates Algorithm. 
+public class Solution {
+    private int[] org; 
+    
+    public Solution(int[] nums) {
+        org = nums; 
+    }
+    
+    /** Resets the array to its original configuration and return it. */
+    public int[] reset() {
+        return org; 
+    }
+    
+    /** Returns a random shuffling of the array. */
+    public int[] shuffle() {
+        int[] res = org.clone(); 
+        for (int i = 0; i < res.length - 1; i++) {
+            int index = (int)(i + Math.random() * (res.length - 1 - i + 1)); 
+            swap(res, i, index); 
+        }
+        return res; 
+    }
+    
+    private void swap(int[] res, int index1, int index2) {
+        int temp = res[index1]; 
+        res[index1] = res[index2]; 
+        res[index2] = temp; 
     }
 }
 
