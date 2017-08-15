@@ -25,6 +25,7 @@ The length of both nums1 and nums2 would not exceed 1000.
 Solution: HashMap.
 */
 
+// O(n^2)
 public class Solution {
     public int[] nextGreaterElement(int[] findNums, int[] nums) {
         if (findNums == null || findNums.length == 0) {
@@ -44,6 +45,28 @@ public class Solution {
                     break; 
                 }
             }
+        }
+        return res; 
+    }
+}
+
+// Stack. O(n)
+public class Solution {
+    public int[] nextGreaterElement(int[] findNums, int[] nums) {
+        if (findNums == null || findNums.length == 0) {
+            return new int[0]; 
+        }
+        Map<Integer, Integer> map = new HashMap<>(); 
+        Stack<Integer> stack = new Stack<>(); 
+        for (int i = 0; i < nums.length; i++) {
+            while (!stack.empty() && stack.peek() < nums[i]) {
+                map.put(stack.pop(), nums[i]); 
+            }
+            stack.push(nums[i]); 
+        }
+        int[] res = new int[findNums.length]; 
+        for (int j = 0; j < findNums.length; j++) {
+            res[j] = map.getOrDefault(findNums[j], -1); 
         }
         return res; 
     }
