@@ -24,6 +24,7 @@ Solution: Swap. Fast and slow pointers.
           Usually there are two ways of using two-pointers method. 1) Fast and slow pointers.(Applied to general cases.) 2) Head and tail pointers.(Applied iff there are just two kinds of targets.) 
 */
 
+// One pass solution. 
 class Solution {
     /**
      * @param nums: A list of integer which is 0, 1 or 2 
@@ -55,5 +56,27 @@ class Solution {
         int temp = nums[index1]; 
         nums[index1] = nums[index2]; 
         nums[index2] = temp; 
+    }
+}
+
+// Two passes solution. 
+class Solution {
+    public void sortColors(int[] nums) {
+        if (nums == null || nums.length <= 1) return; 
+        int len = nums.length; 
+        int left = -1; 
+        int right = 0; 
+        for (; right < len; right++) {
+            if (nums[right] == 0) swap(++left, right, nums); 
+        }
+        for (right = left + 1; right < len; right++) {
+            if (nums[right] == 1) swap(++left, right, nums); 
+        }
+    }
+    
+    private void swap(int left, int right, int[] nums) {
+        int temp = nums[left]; 
+        nums[left] = nums[right]; 
+        nums[right] = temp; 
     }
 }

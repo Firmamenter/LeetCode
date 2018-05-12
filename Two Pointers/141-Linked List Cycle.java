@@ -49,3 +49,22 @@ public class Solution {
         return false;
     }
 }
+
+// New simple version. 
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null || head.next.next == null) {
+            return false; 
+        }
+        ListNode slow = head.next; 
+        ListNode fast = head.next.next; 
+        while (fast != slow) {
+            if (slow.next == null || fast.next == null || fast.next.next == null) {
+                return false; 
+            }
+            slow = slow.next; 
+            fast = fast.next.next; 
+        }
+        return true; 
+    }
+}

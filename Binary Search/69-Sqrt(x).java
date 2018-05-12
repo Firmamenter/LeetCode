@@ -18,15 +18,15 @@ public class Solution {
         long mid; 
         while (start + 1 < end) {
             mid = start + (end - start) / 2; 
-            if (mid*mid == x) {
+            if (mid * mid == x) {
                 return (int)mid; 
-            } else if (mid*mid < x) {
+            } else if (mid * mid < x) {
                 start = mid; 
             } else {
                 end = mid; 
             }
         }
-        if (end*end <= x) {
+        if (end * end == x) {
             return (int)end; 
         } else {
             return (int)start; 

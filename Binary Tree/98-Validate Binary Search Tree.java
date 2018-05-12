@@ -31,6 +31,44 @@ Solution: Divide and Conquer.
  *     TreeNode(int x) { val = x; }
  * }
  */
+// Latest Version. 
+class Solution {
+    private class ResultType {
+        boolean isValid; 
+        int max; 
+        int min; 
+        
+        public ResultType(int max, int min, boolean isValid) {
+            this.max = max; 
+            this.min = min; 
+            this.isValid = isValid; 
+        }
+    }
+    
+    public boolean isValidBST(TreeNode root) {
+        if (root == null) return true; 
+        return helper(root).isValid; 
+    }
+    
+    private ResultType helper(TreeNode root) {
+        if (root.left == null && root.right == null) return new ResultType(root.val, root.val, true); 
+        if (root.left == null) {
+            ResultType right = helper(root.right); 
+            if (right.isValid && right.min > root.val) return new ResultType(right.max, root.val, true); 
+            else return new ResultType(0, 0, false); 
+        }
+        if (root.right == null) {
+            ResultType left = helper(root.left); 
+            if (left.isValid && left.max < root.val) return new ResultType(root.val, left.min, true); 
+            else return new ResultType(0, 0, false); 
+        }
+        ResultType left = helper(root.left); 
+        ResultType right = helper(root.right); 
+        if (left.isValid && right.isValid && root.val > left.max && root.val < right.min) 
+            return new ResultType(right.max, left.min, true); 
+        else return new ResultType(0, 0, false); 
+    }
+}
 
 //My version.
 public class Solution {
@@ -127,5 +165,59 @@ public class Solution {
     
     public boolean isValidBST(TreeNode root) {
         return isValid(root).isBST; 
+    }
+}
+
+// Latest Trial
+class Solution {
+    private class ResultType {
+        int max; 
+        int min; 
+        boolean isValid; 
+        
+        ResultType(int max, int min, boolean isValid) {
+            this.max = max; 
+            this.min = min; 
+            this.isValid = isValid; 
+        }
+    }
+    
+    public boolean isValidBST(TreeNode root) {
+        if (root == null) {
+            return true; 
+        }
+        return helper(root).isValid; 
+    }
+    
+    private ResultType helper(TreeNode root) {
+        if (root.left == null && root.right == null) {
+            return new ResultType(root.val, root.val, true); 
+        }
+        
+        if (root.left == null) {
+            ResultType right = helper(root.right); 
+            if (right.isValid && root.val < right.min) {
+                return new ResultType(right.max, root.val, true); 
+            } else {
+                return new ResultType(Integer.MIN_VALUE, Integer.MAX_VALUE, false); 
+            }
+        }
+        
+        if (root.right == null) {
+            ResultType left = helper(root.left); 
+            if (left.isValid && root.val > left.max) {
+                return new ResultType(root.val, left.min, true); 
+            } else {
+                return new ResultType(Integer.MIN_VALUE, Integer.MAX_VALUE, false); 
+            }
+        }
+        
+        ResultType left = helper(root.left); 
+        ResultType right = helper(root.right); 
+        if (left.isValid && right.isValid && root.val < right.min && root.val > left.max) {
+            return new ResultType(right.max, left.min, true); 
+        } else {
+            return new ResultType(Integer.MIN_VALUE, Integer.MAX_VALUE, false); 
+        }
     }
 }

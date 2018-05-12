@@ -16,39 +16,33 @@ Solution: Use HashMap to store the mapping relationship between original RandomL
  *     RandomListNode(int x) { this.label = x; }
  * };
  */
-
 //Time: O(n)    Space: O(n)
 public class Solution {
     public RandomListNode copyRandomList(RandomListNode head) {
         if (head == null) {
-            return head; 
+            return null; 
         }
-        
-        RandomListNode ite = head; 
-        RandomListNode cur = new RandomListNode(ite.label); 
-        RandomListNode pre = cur; 
-        
-        Map<RandomListNode, RandomListNode> mapping = new HashMap<>(); 
-        mapping.put(ite, cur); 
-        ite = ite.next; 
-        
-        while (ite != null) {
-            cur = new RandomListNode(ite.label); 
-            mapping.put(ite, cur); 
-            pre.next = cur; 
-            pre = cur; 
-            ite = ite.next; 
+        Map<RandomListNode, RandomListNode> match = new HashMap<>(); 
+        RandomListNode root = new RandomListNode(head.label); 
+        RandomListNode newRoot = root; 
+        RandomListNode newHead = head; 
+        match.put(head, root); 
+        newHead = newHead.next; 
+        while (newHead != null) {
+            RandomListNode newListNode = new RandomListNode(newHead.label); 
+            match.put(newHead, newListNode); 
+            newRoot.next = newListNode; 
+            newRoot = newListNode; 
+            newHead = newHead.next; 
         }
-        
-        ite = head; 
-        while (ite != null) {
-            if (ite.random != null) {
-                mapping.get(ite).random = mapping.get(ite.random); 
-            }
-            ite = ite.next; 
+        newRoot = root; 
+        newHead = head; 
+        while (newHead != null) {
+            newRoot.random = match.get(newHead.random); 
+            newRoot = newRoot.next; 
+            newHead = newHead.next; 
         }
-        
-        return mapping.get(head); 
+        return root; 
     }
 }
 
@@ -64,42 +58,34 @@ public class Solution {
 public class Solution {
     public RandomListNode copyRandomList(RandomListNode head) {
         if (head == null) {
-            return head; 
+            return null; 
         }
-        
-        RandomListNode ite = head; 
-        RandomListNode dup; 
-        while (ite != null) {                       //A -> a -> B -> b -> C -> c
-            dup = new RandomListNode(ite.label); 
-            dup.next = ite.next; 
-            ite.next = dup; 
-            ite = dup.next; 
+        RandomListNode newHead = head; 
+        while (newHead != null) {         // A -> a -> B -> b -> C -> c
+            RandomListNode newNode = new RandomListNode(newHead.label); 
+            newNode.next = newHead.next; 
+            newHead.next = newNode; 
+            newHead = newNode.next; 
         }
-        
-        ite = head; 
-        while (ite != null) {
-            dup = ite.next; 
-            if (ite.random != null) {
-                dup.random = ite.random.next; 
-            } else {
-                dup.random = null; 
+        newHead = head; 
+        while (newHead != null) {
+            if (newHead.random != null) {
+                newHead.next.random = newHead.random.next; 
             }
-            ite = dup.next; 
+            newHead = newHead.next.next; 
         }
-        
-        ite = head; 
+        newHead = head; 
         RandomListNode root = head.next; 
-        while (ite != null) {
-            dup = ite.next; 
-            ite.next = dup.next; 
-            if (ite.next != null) {
-                dup.next = dup.next.next; 
-            } else {
-                dup.next = null; 
+        RandomListNode newRoot = root; 
+        while (newHead != null) {
+            newHead.next = newHead.next.next; 
+            newHead = newHead.next; 
+            if (newHead == null) {
+                break; 
             }
-            ite = ite.next; 
+            newRoot.next = newRoot.next.next; 
+            newRoot = newRoot.next; 
         }
-        
         return root; 
     }
 }

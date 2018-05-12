@@ -13,7 +13,7 @@ Example:
 Input: (7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
 Output: 7 -> 8 -> 0 -> 7
 
-SOlution: LinkedList. 
+Solution: LinkedList. 
 */
 
 /**
@@ -24,6 +24,7 @@ SOlution: LinkedList.
  *     ListNode(int x) { val = x; }
  * }
  */
+// Without reversing. 
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         Stack<Integer> stack1 = new Stack<>(); 
@@ -68,5 +69,68 @@ class Solution {
             head.next = ln; 
         }
         return head.next; 
+    }
+}
+
+// With reversing. 
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode head1 = reverse(l1); 
+        ListNode head2 = reverse(l2); 
+        helper(head1, head2); 
+        return reverse(head1); 
+    }
+    
+    private ListNode reverse(ListNode l) {
+        ListNode left = null; 
+        ListNode mid = l; 
+        ListNode right = l.next; 
+        while (mid != null) {
+            mid.next = left; 
+            left = mid; 
+            mid = right; 
+            if (right == null) {
+                break; 
+            }
+            right = right.next; 
+        }
+        return left; 
+    }
+    
+    private void helper(ListNode head1, ListNode head2) {
+        int carrier = 0; 
+        ListNode behind1 = null; 
+        ListNode behind2 = null; 
+        while (head1 != null && head2 != null) {
+            int sum = carrier + head1.val + head2.val; 
+            head1.val = sum % 10; 
+            carrier = sum / 10; 
+            behind1 = head1; 
+            behind2 = head2; 
+            head1 = head1.next; 
+            head2 = head2.next; 
+        }
+        while (head1 != null) {
+            int sum = carrier + head1.val; 
+            head1.val = sum % 10; 
+            carrier = sum / 10; 
+            behind1 = head1; 
+            head1 = head1.next; 
+        }
+        if (head2 != null) {
+            behind1.next = head2; 
+        }
+        while (head2 != null) {
+            int sum = carrier + head2.val; 
+            head2.val = sum % 10; 
+            carrier = sum / 10; 
+            behind1 = head2; 
+            head2 = head2.next; 
+        }
+        if (carrier != 0) {
+            ListNode head = new ListNode(carrier); 
+            behind1.next = head; 
+            behind1 = head; 
+        }
     }
 }

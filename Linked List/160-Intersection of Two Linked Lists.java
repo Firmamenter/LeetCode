@@ -37,39 +37,30 @@ Solution: Linked List.
  */
 public class Solution {
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        if (headA == null || headB == null) {
-            return null; 
+        ListNode newHeadA = headA; 
+        ListNode newHeadB = headB; 
+        int lenA = 0; 
+        while (newHeadA != null) {
+            lenA++; 
+            newHeadA = newHeadA.next; 
         }
-        ListNode iteA = headA; 
-        ListNode iteB = headB; 
-        int countA = 1; 
-        int countB = 1; 
-        while (iteA.next != null) {
-            countA++; 
-            iteA = iteA.next; 
+        int lenB = 0; 
+        while (newHeadB != null) {
+            lenB++; 
+            newHeadB = newHeadB.next; 
         }
-        while (iteB.next != null) {
-            countB++; 
-            iteB = iteB.next; 
+        while (lenA > lenB) {
+            headA = headA.next; 
+            lenA--; 
         }
-        if (iteA != iteB) {
-            return null; 
+        while (lenB > lenA) {
+            headB = headB.next; 
+            lenB--; 
         }
-        iteA = headA; 
-        iteB = headB; 
-        while (countA > countB) {
-            countA--; 
-            iteA = iteA.next; 
+        while (headA != headB) {
+            headA = headA.next; 
+            headB = headB.next; 
         }
-        while (countA < countB) {
-            countB--; 
-            iteB = iteB.next; 
-        }
-        while (iteA != iteB) {
-            iteA = iteA.next; 
-            iteB = iteB.next; 
-        }
-        
-        return iteA; 
+        return headA; 
     }
 }

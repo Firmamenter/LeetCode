@@ -22,53 +22,37 @@ Solution: LinkedList.
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         int carrier = 0; 
-        int sum = 0; 
-        ListNode head1 = l1; 
-        ListNode head2 = l2; 
-        while (true) {
-            sum = head1.val + head2.val + carrier; 
-            head1.val = sum % 10; 
-            head2.val = sum % 10; 
+        ListNode root = new ListNode(0); 
+        ListNode head = root; 
+        while (l1 != null && l2 != null) {
+            int sum = l1.val + l2.val + carrier; 
             carrier = sum / 10; 
-            if (head1.next == null && head2.next == null) {
-                if (carrier == 1) {
-                    ListNode tail = new ListNode(carrier); 
-                    head1.next = tail; 
-                }
-                return l1; 
-            } else if (head1.next == null || head2.next == null) {
-                break; 
-            } else {
-                head1 = head1.next; 
-                head2 = head2.next; 
-            }
+            ListNode newNode = new ListNode(sum % 10); 
+            head.next = newNode; 
+            head = head.next; 
+            l1 = l1.next; 
+            l2 = l2.next; 
         }
-        while (head1.next != null) {
-            head1 = head1.next; 
-            sum = head1.val + carrier; 
-            head1.val = sum % 10; 
+        while (l1 != null) {
+            int sum = l1.val + carrier; 
             carrier = sum / 10; 
-            if (head1.next == null) {
-                if (carrier == 1) {
-                    ListNode tail = new ListNode(carrier); 
-                    head1.next = tail; 
-                }
-                return l1; 
-            }
+            ListNode newNode = new ListNode(sum % 10); 
+            head.next = newNode; 
+            head = head.next; 
+            l1 = l1.next; 
         }
-        while (head2.next != null) {
-            head2 = head2.next; 
-            sum = head2.val + carrier; 
-            head2.val = sum % 10; 
+        while (l2 != null) {
+            int sum = l2.val + carrier; 
             carrier = sum / 10; 
-            if (head2.next == null) {
-                if (carrier == 1) {
-                    ListNode tail = new ListNode(carrier); 
-                    head2.next = tail; 
-                }
-                return l2; 
-            }
+            ListNode newNode = new ListNode(sum % 10); 
+            head.next = newNode; 
+            head = head.next; 
+            l2 = l2.next; 
         }
-        return l1; 
+        if (carrier != 0) {
+            ListNode newNode = new ListNode(carrier); 
+            head.next = newNode; 
+        }
+        return root.next; 
     }
 }

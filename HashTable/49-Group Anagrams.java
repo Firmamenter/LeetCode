@@ -16,7 +16,7 @@ Note: All inputs will be in lower-case.
 Solution: Use Map<String, List<String>> to group anagrams together. 
 */
 
-//Time: O(nklogk)
+// Time: O(nklogk)
 public class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
         List<List<String>> res = new ArrayList<>(); 
@@ -28,7 +28,7 @@ public class Solution {
         for (int i = 0; i < strs.length; i++) {
             char[] temp = strs[i].toCharArray(); 
             Arrays.sort(temp); 
-            String s = Arrays.toString(temp); 
+            String s = Arrays.toString(temp); // String s = String.valueOf(temp); 
             if (map.containsKey(s)) {
                 map.get(s).add(strs[i]); 
             } else {

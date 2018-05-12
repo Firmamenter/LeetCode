@@ -39,10 +39,23 @@ public class Solution {
 }
 
 /*************************** better solution ***************************/
-public static int firstUniqChar(String s) {
-        char[] a = s.toCharArray();
-        for(int i=0; i<a.length;i++){
-            if(s.indexOf(a[i])==s.lastIndexOf(a[i])){return i;}
+class Solution {
+    public int firstUniqChar(String s) {
+        if (s == null || s.length() == 0) {
+            return -1; 
         }
-        return -1;
+        int[][] record = new int[26][2]; 
+        char[] charArray = s.toCharArray(); 
+        for (int i = charArray.length - 1; i >= 0; i--) {
+            record[charArray[i] - 'a'][0] += 1; 
+            record[charArray[i] - 'a'][1] = i; 
+        }
+        int idx = Integer.MAX_VALUE; 
+        for (int i = 0; i < record.length; i++) {
+            if (record[i][0] == 1) {
+                idx = Math.min(idx, record[i][1]); 
+            }
+        }
+        return idx == Integer.MAX_VALUE ? -1 : idx; 
     }
+}

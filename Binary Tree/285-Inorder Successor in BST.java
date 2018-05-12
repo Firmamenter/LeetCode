@@ -53,39 +53,17 @@ public class Solution {
 }
 
 //Time O(h)   Space O(1)
-public class Solution {
+class Solution {
     public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
-        if (root == null) {
-            return root; 
-        }
-        TreeNode cur = root; 
+        if (root == null || p == null) return null; 
         TreeNode successor = null; 
-        while (cur != null && cur.val != p.val) {
-            if (p.val < cur.val) {
-                successor = cur; 
-                cur = cur.left; 
-            } else {
-                cur = cur.right; 
+        while (root != null) {
+            if (root.val <= p.val) root = root.right; 
+            else {
+                successor = root; 
+                root = root.left; 
             }
         }
-        
-        if (cur == null) {
-            return cur; 
-        }
-        
-        if (cur.right == null) {
-            return successor; 
-        }
-        
-        if (cur.right.left == null) {
-            return cur.right; 
-        }
-        
-        TreeNode ite = cur.right; 
-        while (ite.left != null) {
-            ite = ite.left; 
-        }
-        
-        return ite; 
+        return successor; 
     }
 }

@@ -16,9 +16,7 @@ Solution: Use matrix to help solve this DP problem.
 
 public class Solution {
     public boolean isInterleave(String s1, String s2, String s3) {
-        if (s3.length() != s1.length() + s2.length()) {
-            return false; 
-        }
+        if (s1 == null || s2 == null || s3 == null || s3.length() != s1.length() + s2.length()) return false; 
         boolean[][] dp = new boolean[s1.length() + 1][s2.length() + 1]; 
         dp[0][0] = true; 
         for (int i = 1; i < s1.length() + 1; i++) {

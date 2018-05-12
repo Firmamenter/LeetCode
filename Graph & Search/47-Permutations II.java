@@ -11,43 +11,36 @@ For example,
   [2,1,1]
 ]
 
-Solution: Use hashmap to record information.
+Solution: Use boolean array to record information.
 */
 
-public class Solution {
+// Time O(n * n!) Space O(n)
+class Solution {
     public List<List<Integer>> permuteUnique(int[] nums) {
         List<List<Integer>> res = new ArrayList<>(); 
         if (nums == null || nums.length == 0) {
             return res; 
         }
-        
-        Map<Integer, Integer> map = new HashMap<>(); 
-        for (int num : nums) {
-            if (!map.containsKey(num)) {
-                map.put(num, 1); 
-            } else {
-                map.put(num, map.get(num) + 1); 
-            }
-        }
-        List<Integer> list = new ArrayList<>(); 
-        helper(map, res, list, nums.length); 
+        Arrays.sort(nums); 
+        boolean[] visited = new boolean[nums.length]; 
+        helper(res, new ArrayList<Integer>(), visited, nums); 
         return res; 
     }
     
-    private void helper(Map<Integer, Integer> map, List<List<Integer>> res, List<Integer> list, int length) {
-        if (list.size() == length) {
+    private void helper(List<List<Integer>> res, List<Integer> list, boolean[] visited, int[] nums) {
+        if (list.size() == nums.length) {
             res.add(new ArrayList<Integer>(list)); 
             return; 
         }
-        
-        for (Integer key : map.keySet()) {
-            if (!list.contains(key) || map.get(key) != 0) {
-                list.add(key); 
-                map.put(key, map.get(key) - 1); 
-                helper(map, res, list, length); 
-                map.put(key, map.get(key) + 1); 
-                list.remove(list.size() - 1); 
+        for (int i = 0; i < nums.length; i++) {
+            if (visited[i] || (i > 0 && nums[i] == nums[i - 1] && !visited[i - 1])) {
+                continue; 
             }
+            visited[i] = true; 
+            list.add(nums[i]); 
+            helper(res, list, visited, nums); 
+            list.remove(list.size() - 1); 
+            visited[i] = false; 
         }
     }
 }

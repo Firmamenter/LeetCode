@@ -20,39 +20,56 @@ A solution set is:
 Solution: Similar to combination problem.
 */
 
-public class Solution {
+// General version. Time O(n * 2^n) roughly.
+class Solution {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         List<List<Integer>> res = new ArrayList<>(); 
-        if (candidates == null || candidates.length == 0) {
-            return res; 
-        }
+        if (candidates == null || candidates.length == 0) return res; 
         Arrays.sort(candidates); 
         boolean[] isUsed = new boolean[candidates.length]; 
-        List<Integer> list = new ArrayList<>(); 
-        helper(res, candidates, list, isUsed, target, 0, 0); 
+        helper(res, candidates, new ArrayList<Integer>(), 0, 0, target, isUsed); 
         return res; 
     }
     
-    private void helper(List<List<Integer>> res, int[] candidates, List<Integer> list, boolean[] isUsed, int target, int position, int sum) {
-        if (sum > target) {
-            return; 
-        }
+    private void helper(List<List<Integer>> res, int[] candidates, List<Integer> list, int idx,
+                        int sum, int target, boolean[] isUsed) {
         if (sum == target) {
             res.add(new ArrayList<Integer>(list)); 
             return; 
         }
-        
-        for (int i = position; i < candidates.length; i++) {
-            if (i > 0 && candidates[i - 1] == candidates[i] && !isUsed[i - 1]) {
-                continue; 
-            }
-            if (sum < target) {
-                list.add(candidates[i]); 
-                isUsed[i] = true; 
-                helper(res, candidates, list, isUsed, target, i + 1, sum + candidates[i]); 
-                list.remove(list.size() - 1); 
-                isUsed[i] = false; 
-            }
+        if (sum > target) return; 
+        for (int i = idx; i < candidates.length; i++) {
+            if (i > 0 && candidates[i] == candidates[i - 1] && !isUsed[i - 1]) continue; 
+            list.add(candidates[i]); 
+            isUsed[i] = true; 
+            helper(res, candidates, list, i + 1, sum + candidates[i], target, isUsed); 
+            isUsed[i] = false; 
+            list.remove(list.size() - 1); 
+        }
+    }
+}
+
+// Faster version. Time O(n * 2^n) roughly.
+class Solution {
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> res = new ArrayList<>(); 
+        if (candidates == null || candidates.length == 0) return res; 
+        Arrays.sort(candidates); 
+        helper(res, candidates, new ArrayList<Integer>(), 0, 0, target); 
+        return res; 
+    }
+    
+    private void helper(List<List<Integer>> res, int[] candidates, List<Integer> list, int idx, int sum, int target) {
+        if (sum == target) {
+            res.add(new ArrayList<Integer>(list)); 
+            return; 
+        }
+        if (sum > target) return; 
+        for (int i = idx; i < candidates.length; i++) {
+            list.add(candidates[i]); 
+            helper(res, candidates, list, i + 1, sum + candidates[i], target); 
+            list.remove(list.size() - 1); 
+            while (i + 1 < candidates.length && candidates[i + 1] == candidates[i]) i++; 
         }
     }
 }

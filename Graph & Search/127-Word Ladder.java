@@ -23,7 +23,7 @@ You may assume beginWord and endWord are non-empty and are not the same.
 
 Solution: Use BFS.
 */
-
+// Space: O(n)   Time: O(k*n^2) (k is word length)
 public class Solution {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
         Queue<String> queue = new LinkedList<>(); 
@@ -60,5 +60,55 @@ public class Solution {
             }
         }
         return flag == 1; 
+    }
+}
+
+// Faster. Space: O(n)   Time: O(n*k) (k is word length)
+class Solution {
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        Set<String> wordSet = new HashSet<>(); 
+        for (String word : wordList) {
+            wordSet.add(word); 
+        }
+        wordSet.remove(beginWord); 
+        Queue<String> queue = new LinkedList<>(); 
+        queue.offer(beginWord); 
+        int level = 1; 
+        while (!queue.isEmpty()) {
+            level++; 
+            int len = queue.size(); 
+            for (int i = 0; i < len; i++) {
+                String cur = queue.poll(); 
+                List<String> transWords = getTransWords(wordSet, cur); 
+                for (String word : transWords) {
+                    if (word.equals(endWord)) {
+                        return level; 
+                    }
+                    queue.offer(word); 
+                }
+            }
+        }
+        return 0; 
+    }
+    
+    private List<String> getTransWords(Set<String> wordSet, String cur) {
+        List<String> res = new ArrayList<>(); 
+        char[] charArr = cur.toCharArray(); 
+        for (int i = 0; i < cur.length(); i++) {
+            char oriChar = charArr[i]; 
+            for (char c = 'a'; c <= 'z'; c++) {
+                if (c == oriChar) {
+                    continue; 
+                }
+                charArr[i] = c; 
+                String str = new String(charArr); 
+                if (wordSet.contains(str)) {
+                    wordSet.remove(str); 
+                    res.add(str); 
+                }
+            }
+            charArr[i] = oriChar; 
+        }
+        return res; 
     }
 }

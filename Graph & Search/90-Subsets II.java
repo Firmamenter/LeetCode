@@ -19,7 +19,7 @@ If nums = [1,2,2], a solution is:
 
 Solution: Use boolean[] to store information.
 */
-
+// Time O(n * 2^n) Space O(n)
 public class Solution {
     public List<List<Integer>> subsetsWithDup(int[] nums) {
         List<List<Integer>> res = new ArrayList<>(); 
@@ -50,5 +50,35 @@ public class Solution {
             used[i] = false; 
             list.remove(list.size() - 1); 
         }
+    }
+}
+
+// Time O(n * 2^n) Space O(n)
+class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>(); 
+        if (nums == null) {
+            return res; 
+        }
+        Arrays.sort(nums); 
+        boolean[] visited = new boolean[nums.length]; 
+        helper(res, nums, 0, visited, new ArrayList<Integer>()); 
+        return res; 
+    }
+    
+    private void helper(List<List<Integer>> res, int[] nums, int pos, boolean[] visited, List<Integer> list) {
+        if (pos == nums.length) {
+            res.add(new ArrayList<Integer>(list)); 
+            return; 
+        }
+        helper(res, nums, pos + 1, visited, list); 
+        if (pos > 0 && nums[pos] == nums[pos - 1] && !visited[pos - 1]) {
+            return; 
+        }
+        list.add(nums[pos]); 
+        visited[pos] = true; 
+        helper(res, nums, pos + 1, visited, list); 
+        visited[pos] = false; 
+        list.remove(list.size() - 1); 
     }
 }

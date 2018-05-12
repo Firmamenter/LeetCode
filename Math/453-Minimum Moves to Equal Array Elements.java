@@ -16,7 +16,7 @@ Only three moves are needed (remember each move increments two elements):
 
 [1,2,3]  =>  [2,3,3]  =>  [3,4,3]  =>  [4,4,4]
 
-Solution: Math. 
+Solution: Math. Every step can be divided into two individual steps: add 1 to all columns and then choose one column to minus one. So the result should be sum - min * array.length. 
 */
 
 public class Solution {

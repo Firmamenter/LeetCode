@@ -8,6 +8,7 @@ Note: You can only move either down or right at any point in time.
 Solution: DP
 */
 
+// More space. 
 public class Solution {
     public int minPathSum(int[][] grid) {
         if (grid == null || grid.length == 0 || grid[0].length == 0) {
@@ -32,5 +33,22 @@ public class Solution {
         }
         
         return minPath[row - 1][col - 1]; 
+    }
+}
+
+// Less space. 
+class Solution {
+    public int minPathSum(int[][] grid) {
+        if (grid == null || grid.length == 0 || grid[0].length == 0) return 0; 
+        int row = grid.length; 
+        int col = grid[0].length; 
+        int[] line = new int[col]; 
+        line[0] = grid[0][0]; 
+        for (int c = 1; c < col; c++) line[c] = line[c - 1] + grid[0][c]; 
+        for (int r = 1; r < row; r++) {
+            line[0] = line[0] + grid[r][0]; 
+            for (int c = 1; c < col; c++) line[c] = Math.min(line[c], line[c - 1]) + grid[r][c]; 
+        }
+        return line[col - 1]; 
     }
 }

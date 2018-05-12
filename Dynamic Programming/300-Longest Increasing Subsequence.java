@@ -13,7 +13,7 @@ Follow up: Could you improve it to O(n log n) time complexity?
 
 Solution: DP.
 */
-//Time: O(n^2)
+// Time: O(n^2)
 public class Solution {
     public int lengthOfLIS(int[] nums) {
         if (nums == null || nums.length == 0) {
@@ -37,5 +37,32 @@ public class Solution {
         }
         
         return max; 
+    }
+}
+
+// Time: O(nlogn) Patient Sort
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        if (nums == null || nums.length == 0) return 0; 
+        int[] tails = new int[nums.length]; 
+        tails[0] = nums[0]; 
+        int maxLen = 1; 
+        for (int i = 1; i < tails.length; i++) {
+            int idx = binarySearch(tails, nums[i], 0, maxLen - 1); 
+            tails[idx] = nums[i]; 
+            maxLen = Math.max(maxLen, idx + 1); 
+        }
+        return maxLen; 
+    }
+    
+    private int binarySearch(int[] tails, int target, int start, int end) {
+        while (start + 1 < end) {
+            int mid = start + (end - start) / 2; 
+            if (tails[mid] >= target) end = mid; 
+            else start = mid; 
+        }
+        if (tails[start] >= target) return start; 
+        else if (tails[end] >= target) return end; 
+        else return end + 1; 
     }
 }

@@ -12,6 +12,7 @@ Your algorithm should run in linear runtime complexity. Could you implement it u
 Solution: Math. Calculate sum and minus nums[i] one by one.
 */
 
+// Math. 
 public class Solution {
     public int missingNumber(int[] nums) {
         if (nums.length == 0) {
@@ -22,5 +23,26 @@ public class Solution {
             sum -= nums[i]; 
         }
         return (int)sum; 
+    }
+}
+
+// Flipping. 
+class Solution {
+    public int missingNumber(int[] nums) {
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != 0) {
+                nums[Math.abs(nums[i]) - 1] *= -1; 
+            }
+        }
+        int idx = 0; 
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > 0) {
+                return i + 1; 
+            }
+            if (nums[i] == 0) {
+                idx = i + 1; 
+            }
+        }
+        return idx; 
     }
 }
