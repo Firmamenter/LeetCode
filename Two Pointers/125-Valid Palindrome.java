@@ -10,6 +10,35 @@ For example,
 Solution: Two pointers. 1) Character.isLetterOrDigit(s.charAt(i)). 2) 'a' <= s.charAt(i) && s.charAt(i) <= 'z'.
 */
 
+class Solution {
+    public boolean isPalindrome(String s) {
+        if (s == null) {
+            return false; 
+        }
+        int len = s.length(); 
+        if (len == 0 || len == 1) {
+            return true; 
+        }
+        s = s.toLowerCase(); 
+        int left = 0; 
+        int right = len - 1; 
+        while (left < right) {
+            while (left < right && !Character.isLetterOrDigit(s.charAt(left))) {
+                left++; 
+            }
+            while (right > left && !Character.isLetterOrDigit(s.charAt(right))) {
+                right--; 
+            }
+            if (s.charAt(left) == s.charAt(right)) {
+                left++; 
+                right--; 
+            } else {
+                return false;
+            }
+        }
+        return true; 
+    }
+}
 
 public class Solution {
     public boolean isPalindrome(String s) {
