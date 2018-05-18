@@ -49,3 +49,37 @@ class Solution {
         return substring; 
     }
 }
+
+// center expand O(n^2) O(1)
+class Solution {
+    public String longestPalindrome(String s) {
+        if (s == null) {
+            return null; 
+        }
+        int len = s.length(); 
+        if (len < 2) {
+            return s; 
+        }
+        String res = ""; 
+        for (int i = 0; i < len; i++) {
+            int palindromeLen1 = findPalindrome(s, i, i); 
+            int palindromeLen2 = findPalindrome(s, i, Math.min(i + 1, len - 1)); 
+            int maxLen = Math.max(palindromeLen1, palindromeLen2); 
+            if (maxLen > res.length()) {
+                int half = (maxLen - 1) / 2; 
+                res = s.substring(i - half, i - half + maxLen); 
+            }
+        }
+        return res; 
+    }
+    
+    private int findPalindrome(String source, int left, int right) {
+        while (left >= 0 && right < source.length() && source.charAt(left) == source.charAt(right)) {
+            left--; 
+            right++; 
+        }
+        left++; 
+        right--; 
+        return right - left + 1; 
+    }
+}
