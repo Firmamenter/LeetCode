@@ -6,6 +6,35 @@ Determine whether an integer is a palindrome. Do this without extra space.
 Solution: Use double pointers start and end.
 */
 
+class Solution {
+    public boolean isPalindrome(int x) {
+        if (x < 0) {
+            return false; 
+        }
+        if (x == 0) {
+            return true; 
+        }
+        int len = 0; 
+        int temp = x; 
+        while (temp != 0) {
+            temp /= 10; 
+            len++; 
+        }
+        
+        while (x != 0) {
+            int left = x / (int)Math.pow(10, len - 1); 
+            int right = x % 10; 
+            if (left != right) {
+                return false; 
+            }
+            x -= left * (int)Math.pow(10, len - 1); 
+            x /= 10; 
+            len -= 2; 
+        }
+        return true; 
+    }
+}
+
 {
     public boolean isPalindrome(int x) {
         // negative integer is not a palindrome
