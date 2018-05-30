@@ -17,6 +17,35 @@ Solution: InOrder Traversal using stack.
  *     TreeNode(int x) { val = x; }
  * }
  */
+// Standard inorder traversal template
+public class Solution {
+    public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
+        if (root == null || p == null) {
+            return null; 
+        }
+        Stack<TreeNode> stack = new Stack<>(); 
+        TreeNode cur = root; 
+        boolean triger = false; 
+        
+        while (cur != null || !stack.empty()) {
+            while (cur != null) {
+                stack.push(cur); 
+                cur = cur.left; 
+            }
+            if (triger) {
+                return stack.pop(); 
+            }
+            cur = stack.pop(); 
+            if (cur == p) {
+                triger = true; 
+            }
+            cur = cur.right; 
+        }
+        
+        return null; 
+    }
+}
+
 //Time O(h)   Space O(h)
 public class Solution {
     public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {

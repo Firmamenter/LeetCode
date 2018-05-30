@@ -28,7 +28,7 @@ Solution: Iterate, traversal, divide & conquer.
  */
 
 //Solution 1: Traversal
-//Time: O(n)    Space: O(1)
+//Time: O(n)    Space: O(h)
 public class Solution {
     public List<Integer> preorderTraversal(TreeNode root) {
         List<Integer> result = new ArrayList<>(); 
