@@ -14,6 +14,24 @@ Solution: Use a temporary ListNode to store the next node of head.
  *     ListNode(int x) { val = x; }
  * }
  */
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head; 
+        }
+        ListNode left = null, mid = head, right = mid.next; 
+        while (mid != null) {
+            mid.next = left; 
+            left = mid; 
+            mid = right; 
+            if (mid != null) {
+                right = mid.next; 
+            }
+        }
+        return left; 
+    }
+}
+
 public class Solution {
     public ListNode reverseList(ListNode head) {
         if (head == null || head.next == null) {
