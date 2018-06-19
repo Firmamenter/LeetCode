@@ -21,6 +21,29 @@ class Solution {
             return 0; 
         }
         
+        int len = prices.length; 
+        int[] hold = new int[len]; 
+        int[] unhold = new int[len]; 
+        int[] cooldown = new int[len]; 
+        
+        hold[0] = -prices[0]; 
+        
+        for (int i = 1; i < len; i++) {
+            hold[i] = Math.max(unhold[i - 1] - prices[i], hold[i - 1]); 
+            unhold[i] = Math.max(cooldown[i - 1], unhold[i - 1]); 
+            cooldown[i] = hold[i - 1] + prices[i]; 
+        }
+        
+        return Math.max(hold[len - 1], Math.max(unhold[len - 1], cooldown[len - 1])); 
+    }
+}
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        if (prices == null || prices.length <= 1) {
+            return 0; 
+        }
+        
         int[] sell = new int[prices.length]; 
         int[] buy = new int[prices.length]; 
         sell[0] = 0; 

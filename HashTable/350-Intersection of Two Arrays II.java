@@ -15,8 +15,9 @@ What if nums1's size is small compared to nums2's size? Which algorithm is bette
 What if elements of nums2 are stored on disk, and the memory is limited such that you cannot load all elements into the memory at once?
 
 Solution: HashMap.
+Follow-up: 1.Two pointers 只用存结果的空间 2.小的array放进HashMap里 3.同2
 */
-
+// Time O(m + n)    Space O(m + n)
 public class Solution {
     public int[] intersect(int[] nums1, int[] nums2) {
         if (nums1 == null || nums1.length == 0 || nums2 == null || nums2.length == 0) {
