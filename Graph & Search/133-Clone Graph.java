@@ -71,3 +71,40 @@ public class Solution {
         return map.get(node); 
     }
 }
+
+// Latest trial
+public class Solution {
+    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+        if (node == null) {
+            return null; 
+        }
+        
+        Queue<UndirectedGraphNode> queue = new LinkedList<>(); 
+        queue.offer(node); 
+        
+        Map<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<>(); 
+        UndirectedGraphNode root = new UndirectedGraphNode(node.label); 
+        map.put(node, root); 
+        
+        while (!queue.isEmpty()) {
+            UndirectedGraphNode cur = queue.poll(); 
+            for (UndirectedGraphNode tempNode : cur.neighbors) {
+                if (!map.containsKey(tempNode)) {
+                    UndirectedGraphNode newNode = new UndirectedGraphNode(tempNode.label); 
+                    map.put(tempNode, newNode); 
+                    queue.offer(tempNode); 
+                }
+            }
+        }
+        
+        for (Map.Entry<UndirectedGraphNode, UndirectedGraphNode> entry : map.entrySet()) { 
+            List<UndirectedGraphNode> list = new ArrayList<>(); 
+            for (UndirectedGraphNode neighbor : entry.getKey().neighbors) {
+                list.add(map.get(neighbor)); 
+            }
+            entry.getValue().neighbors = list; 
+        }
+        
+        return root; 
+    }
+}

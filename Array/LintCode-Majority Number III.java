@@ -17,6 +17,7 @@ Challenge
 O(n) time and O(k) extra space
 
 Solution: Similar to Majority Number II, use hashmap to perform like candidates. 
+          O(n)是因为Amortized时间复杂度是O(n), 每个element最多进入Map和出Map一次
 */
 
 public class Solution {

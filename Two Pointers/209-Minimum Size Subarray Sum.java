@@ -41,6 +41,33 @@ public class Solution {
     }
 }
 
+public class Solution {
+    public int minSubArrayLen(int s, int[] nums) {
+        if (nums == null || nums.length == 0 || s <= 0) {
+            return 0; 
+        }
+        
+        int left = 0; 
+        int right = 0; 
+        int sum = nums[0]; 
+        int minLen = Integer.MAX_VALUE; 
+        while (left < nums.length && right < nums.length) {
+            if (sum < s) {
+                right++; 
+                if (right < nums.length) {
+                    sum += nums[right]; 
+                }
+            } else {
+                minLen = Math.min(minLen, right - left + 1); 
+                sum -= nums[left]; 
+                left++; 
+            }
+        }
+        
+        return minLen == Integer.MAX_VALUE ? 0 : minLen; 
+    }
+}
+
 // O(nlogn)
 public class Solution {
     public int minSubArrayLen(int s, int[] nums) {
@@ -78,12 +105,14 @@ public class Solution {
                 start = mid; 
             }
         }
-        if (sum[start] > target) {
-            return start; 
-        } else if (sum[end] > target) {
-            return end; 
+        if (sum[start] <= target) {
+            if (sum[end] <= target) {
+                return end + 1; 
+            } else {
+                return end; 
+            }
         } else {
-            return end + 1; 
+            return start; 
         }
     }
 }

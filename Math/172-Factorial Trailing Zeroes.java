@@ -14,7 +14,7 @@ public class Solution {
             return 0; 
         }
         int res = 0; 
-        while (n != 0) {
+        while (n != 0) { // 5的一次方有多少，5的二次方有多少，5的三次方有多少等等
             n /= 5; 
             res += n; 
         }
