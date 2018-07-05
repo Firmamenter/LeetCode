@@ -22,7 +22,7 @@ Output:
 
 The longest substring is "ababb", as 'a' is repeated 2 times and 'b' is repeated 3 times.
 
-Sol: Divide and Conquer. Two pointers.
+Sol: Divide and Conquer.
 */
 
 // Divide and Conquer. Best O(nlogn) Worst O(n^2)
@@ -54,5 +54,3 @@ class Solution {
         return end - start + 1; 
     }
 }
-
-// Two pointers. O(n)
