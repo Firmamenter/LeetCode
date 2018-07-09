@@ -40,7 +40,7 @@ Can you do it in time complexity O(k log mn), where k is the length of the posit
 
 Sol: Union-find
 */
-
+// Time O(k + mn)
 class Solution {
     private class Element {
         int row; 
