@@ -105,3 +105,82 @@ class Solution {
         }
     }
 }
+
+// Union and find
+class Solution {
+    private class Element {
+        int row; 
+        int col; 
+        
+        Element(int row, int col) {
+            this.row = row; 
+            this.col = col; 
+        }
+    }
+    
+    private int count = 0; 
+    private Element[][] father; 
+    private int[][] size; 
+    
+    public int numIslands(char[][] grid) {
+        if (grid == null || grid.length == 0 || grid[0].length == 0) {
+            return 0; 
+        }
+        
+        int numOfRow = grid.length; 
+        int numOfCol = grid[0].length; 
+        father = new Element[numOfRow][numOfCol]; 
+        size = new int[numOfRow][numOfCol]; 
+        for (int i = 0; i < numOfRow; i++) {
+            for (int j = 0; j < numOfCol; j++) {
+                if (grid[i][j] == '1') {
+                    count++; 
+                    father[i][j] = new Element(i, j); 
+                    size[i][j] = 1; 
+                }
+            }
+        }
+        
+        int[] dr = {0, 0, 1, -1}; 
+        int[] dc = {1, -1, 0, 0}; 
+        for (int i = 0; i < numOfRow; i++) {
+            for (int j = 0; j < numOfCol; j++) {
+                if (grid[i][j] == '0') {
+                    continue; 
+                }
+                for (int k = 0; k < 4; k++) {
+                    int newR = i + dr[k]; 
+                    int newC = j + dc[k]; 
+                    if (newR >= 0 && newR < numOfRow && newC >= 0 && newC < numOfCol && grid[newR][newC] == '1') {
+                        union(father[i][j], father[newR][newC]); 
+                    }
+                }
+            }
+        }
+        
+        return count; 
+    }
+    
+    private Element find(Element e) {
+        if (father[e.row][e.col] == e) {
+            return e; 
+        }
+        father[e.row][e.col] = find(father[e.row][e.col]); 
+        return father[e.row][e.col]; 
+    }
+    
+    private void union(Element e1, Element e2) {
+        Element father1 = find(e1); 
+        Element father2 = find(e2); 
+        if (father1 != father2) {
+            if (size[father2.row][father2.col] > size[father1.row][father1.col]) {
+                father[father1.row][father1.col] = father2; 
+                size[father2.row][father2.col] += size[father1.row][father1.col]; 
+            } else {
+                father[father2.row][father2.col] = father1; 
+                size[father1.row][father1.col] += size[father2.row][father2.col]; 
+            }
+            count--; 
+        }
+    }
+}
