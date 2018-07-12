@@ -54,9 +54,8 @@ class Solution {
         for (int i = 0; i < Integer.valueOf(times.toString()); i++) {
             result.append(sb); 
         }
-        char[] charArr = result.toString().toCharArray(); 
-        for (int i = 0; i < charArr.length; i++) {
-            stack.push(charArr[i]); 
+        for (int i = 0; i < result.length(); i++) {
+            stack.push(result.charAt(i)); 
         }
     }
 }
