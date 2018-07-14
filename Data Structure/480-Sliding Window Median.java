@@ -86,11 +86,6 @@ class Solution {
         for (int i = 0; i < nums.length; i++) {
             if (i < k) {
                 insert(nums, i, k, minHeap, maxHeap); 
-                System.out.println("***********"); 
-                System.out.println(maxHeap.peek()); 
-                System.out.println(minHeap.peek()); 
-                System.out.println(maxHeap.size()); 
-                System.out.println(minHeap.size()); 
             } else {
                 insert(nums, i, k, minHeap, maxHeap); 
                 delete(nums, i, k, minHeap, maxHeap); 
