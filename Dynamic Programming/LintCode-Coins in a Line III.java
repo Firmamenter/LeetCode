@@ -15,6 +15,41 @@ Given array A = [1,20,4], return false.
 
 Solution: dp[i][j] means the largest possible sum one player can get from i to j. 
 */
+// 最大最小值方法
+public class Solution {
+    /**
+     * @param values: a vector of integers
+     * @return: a boolean which equals to true if the first player will win
+     */
+    public boolean firstWillWin(int[] values) {
+        // write your code here
+        if (values == null || values.length == 0) {
+            return false; 
+        }
+        if (values.length == 1) {
+            return true; 
+        }
+        int len = values.length; 
+        int[][] dp = new int[len][len]; 
+        int sum = 0; 
+        for (int i = 0; i < len; i++) {
+            dp[i][i] = values[i]; 
+            sum += values[i]; 
+        }
+        for (int i = len - 3; i >= 0; i--) {
+            for (int j = i + 1; j < len; j++) {
+                if (j == i + 1) {
+                    dp[i][j] = Math.max(values[i], values[j]); 
+                    continue; 
+                }
+                int left = values[i] + Math.min(dp[i + 2][j], dp[i + 1][j - 1]); 
+                int right = values[j] + Math.min(dp[i + 1][j - 1], dp[i][j - 2]); 
+                dp[i][j] = Math.max(left, right); 
+            }
+        }
+        return 2 * dp[0][len - 1] > sum; 
+    }
+}
 
 public class Solution {
     /**

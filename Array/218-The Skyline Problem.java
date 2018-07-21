@@ -21,3 +21,55 @@ There must be no consecutive horizontal lines of equal height in the output skyl
 
 Sol: Sweep line + Heap. 
 */
+
+class Solution {
+    private class Tri {
+        int idx; 
+        int height; 
+        boolean start; 
+        Tri(int idx, int height, boolean start) {
+            this.idx = idx; 
+            this.height = height; 
+            this.start = start; 
+        }
+    }
+    
+    public List<int[]> getSkyline(int[][] buildings) {
+        if (buildings == null || buildings.length == 0 || buildings[0].length < 3) {
+            return new ArrayList<int[]>(); 
+        }
+        List<Tri> list = new ArrayList<>(); 
+        for (int i = 0; i < buildings.length; i++) {
+            list.add(new Tri(buildings[i][0], buildings[i][2], true)); 
+            list.add(new Tri(buildings[i][1], buildings[i][2], false)); 
+        }
+        Collections.sort(list, (a, b) -> a.idx - b.idx); 
+        list.add(new Tri(list.get(list.size() - 1).idx + 1, -1, true)); 
+        TreeMap<Integer, Integer> skyline = new TreeMap<>();  
+        List<int[]> res = new ArrayList<>(); 
+        int[] prev = new int[]{list.get(0).idx, 0}; 
+        for (int i = 0; i < list.size(); i++) {
+            Tri cur = list.get(i); 
+            if (cur.start) {
+                skyline.put(cur.height, skyline.getOrDefault(cur.height, 0) + 1); 
+            } else {
+                if (skyline.get(cur.height) == 1) {
+                    skyline.remove(cur.height); 
+                } else {
+                    skyline.put(cur.height, skyline.get(cur.height) - 1); 
+                }
+            }
+            if (cur.idx == prev[0]) { // 关键点一：只要idx相同，不停更新当前最大值
+                prev[1] = skyline.size() == 0 ? 0 : skyline.lastKey(); 
+            } else { // 关键点二：idx一旦不同，检验是否加入res，如果height和之前相同则没必要加；无论如何prev都要更新
+                if (res.size() == 0 || res.get(res.size() - 1)[1] != prev[1]) {
+                    res.add(new int[]{prev[0], prev[1]}); 
+                }
+                prev[0] = cur.idx; 
+                prev[1] = skyline.size() == 0 ? 0 : skyline.lastKey(); 
+            }
+        }
+        
+        return res; 
+    }
+}
