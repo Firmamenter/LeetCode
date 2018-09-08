@@ -28,6 +28,21 @@ Solution: DP. cash means the max profit when you don't have stock in your hand i
 
 class Solution {
     public int maxProfit(int[] prices, int fee) {
+        int len = prices.length; 
+        int[] hold = new int[len]; 
+        int[] unhold = new int[len]; 
+        
+        hold[0] = -prices[0]; 
+        for (int i = 1; i < len; i++) {
+            hold[i] = Math.max(hold[i - 1], unhold[i - 1] - prices[i]); 
+            unhold[i] = Math.max(unhold[i - 1], hold[i - 1] + prices[i] - fee); 
+        }
+        return Math.max(hold[len - 1], unhold[len - 1]); 
+    }
+}
+
+class Solution {
+    public int maxProfit(int[] prices, int fee) {
         int cash = 0; 
         int hold = -prices[0]; 
         for (int i = 1; i < prices.length; i++) {

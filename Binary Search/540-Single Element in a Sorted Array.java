@@ -31,14 +31,19 @@ public class Solution {
             }
         }
         
-        if (end == start) {
+        // if (end == start) {
+        //     return nums[start]; 
+        // } else if (start == 0) {
+        //     return nums[start]; 
+        // } else if (nums[start] == nums[start - 1]) {
+        //     return nums[end]; 
+        // } else {
+        //     return nums[start]; 
+        // }
+        if (start == 0) {
             return nums[start]; 
-        } else if (start == 0) {
-            return nums[start]; 
-        } else if (nums[start] == nums[start - 1]) {
-            return nums[end]; 
         } else {
-            return nums[start]; 
+            return nums[end]; 
         }
     }
 }
