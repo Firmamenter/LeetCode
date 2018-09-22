@@ -15,6 +15,29 @@ Sort a linked list using insertion sort.
  *     }
  * }
  */ 
+class Solution {
+    public ListNode insertionSortList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head; 
+        }
+        ListNode dummy = new ListNode(Integer.MIN_VALUE);  
+        while (head != null) {
+            ListNode ite = dummy; 
+            ListNode pre = null; 
+            while (ite != null && head.val >= ite.val) {
+                pre = ite; 
+                ite = ite.next; 
+            }
+            pre.next = head; 
+            ListNode temp = head.next; 
+            head.next = ite; 
+            head = temp; 
+        }
+        return dummy.next; 
+    }
+}
+
+
 public class Solution {
     /**
      * @param head: The first node of linked list.

@@ -7,6 +7,7 @@ Example:
 Given a = 1 and b = 2, return 3.
 
 Solution: Bit Manipulation. Numbers are stored in the form of complement.
+两数相加，不考虑进位是a^b，进位是(a & b) << 1，因此总的是(a ^ b) + (a & b) << 1
 */
 
 public class Solution {

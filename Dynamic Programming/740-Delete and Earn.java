@@ -27,6 +27,35 @@ Each element nums[i] is an integer in the range [1, 10000].
 
 Solution: DP. 
 */
+class Solution {
+    public int deleteAndEarn(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0; 
+        }
+        Arrays.sort(nums); 
+        int curSum = 0; 
+        int preSum = 0; 
+        int prePreSum = 0; 
+        int cur = 0; 
+        int pre = -1; 
+        while (cur < nums.length) {
+            pre = cur - 1; 
+            int sum = nums[cur++]; 
+            while (cur < nums.length && nums[cur] == nums[cur - 1]) {
+                sum += nums[cur++]; 
+            }
+            if (pre >= 0 && nums[cur - 1] > nums[pre] + 1) {
+                curSum = sum + preSum; 
+            } else {
+                curSum = Math.max(preSum, sum + prePreSum); 
+            }
+            prePreSum = preSum; 
+            preSum = curSum; 
+        }
+        return curSum; 
+    }
+}
+
 
 class Solution {
     public int deleteAndEarn(int[] nums) {

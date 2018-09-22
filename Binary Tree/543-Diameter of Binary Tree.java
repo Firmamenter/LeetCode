@@ -26,6 +26,48 @@ Solution: DC.
  *     TreeNode(int x) { val = x; }
  * }
  */
+class Solution {
+    private class ResultType {
+        int single; 
+        int max; 
+        ResultType(int single, int max) {
+            this.single = single; 
+            this.max = max; 
+        }
+    }
+    
+    public int diameterOfBinaryTree(TreeNode root) {
+        if (root == null) {
+            return 0; 
+        }
+        return helper(root).max - 1; 
+    }
+    
+    private ResultType helper(TreeNode root) {
+        if (root.left == null && root.right == null) {
+            return new ResultType(1, 1); 
+        }
+        
+        if (root.left == null) {
+            ResultType right = helper(root.right); 
+            int single = right.single + 1; 
+            return new ResultType(single, Math.max(single, right.max)); 
+        }
+        
+        if (root.right == null) {
+            ResultType left = helper(root.left); 
+            int single = left.single + 1; 
+            return new ResultType(single, Math.max(single, left.max)); 
+        }
+        
+        ResultType left = helper(root.left); 
+        ResultType right = helper(root.right); 
+        int single = Math.max(left.single, right.single) + 1; 
+        int max = Math.max(Math.max(left.max, right.max), left.single + right.single + 1); 
+        return new ResultType(single, max); 
+    }
+}
+
 public class Solution {
     private class ResultType {
         int leftLen; 

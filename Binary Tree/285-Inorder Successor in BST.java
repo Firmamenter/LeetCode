@@ -82,6 +82,7 @@ public class Solution {
 }
 
 //Time O(h)   Space O(1)
+// 利用BST的特性，找右子树最左边的node，先向右再向左
 class Solution {
     public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
         if (root == null || p == null) return null; 

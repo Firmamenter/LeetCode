@@ -80,3 +80,31 @@ public class Solution {
         }
     }
 }
+
+class Solution {
+    private String res = ""; 
+    
+    public String tree2str(TreeNode t) {
+        if (t == null) {
+            return res; 
+        }
+        helper(t); 
+        return res; 
+    }
+    
+    private void helper(TreeNode root) {
+        res += root.val + ""; 
+        boolean hasLeft = false; 
+        if (root.left != null) {
+            hasLeft = true; 
+            res += "("; 
+            helper(root.left); 
+            res += ")"; 
+        }
+        if (root.right != null) {
+            res += hasLeft ? "(" : "()("; 
+            helper(root.right); 
+            res += ")"; 
+        } 
+    }
+}

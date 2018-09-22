@@ -44,7 +44,7 @@ class Solution {
     }
 }
 
-// Cycle. 
+// Cycle. 注意这里0是起点!!!
 class Solution {
     public int findDuplicate(int[] nums) {
         int slow = nums[0]; 

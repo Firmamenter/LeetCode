@@ -39,6 +39,36 @@ Solution: DFS.
  *     TreeNode(int x) { val = x; }
  * }
  */
+// O(n)
+public class Solution {
+    public int pathSum(TreeNode root, int sum) {
+        Map<Integer, Integer> preSum = new HashMap<Integer, Integer>(); 
+        preSum.put(0, 1); 
+        return helper(root, sum, 0, preSum); 
+    }
+    
+    private int helper(TreeNode root, int target, int acc, Map<Integer, Integer> preSum) {
+        if (root == null) {
+            return 0; 
+        }
+        
+        int curSum = acc + root.val; 
+        
+        int res = 0; 
+        if (preSum.containsKey(curSum - target)) {
+            res += preSum.get(curSum - target); 
+        }
+        
+        if (preSum.containsKey(curSum)) {
+            preSum.put(curSum, preSum.get(curSum) + 1); 
+        } else {
+            preSum.put(curSum, 1); 
+        }
+        res += helper(root.left, target, curSum, preSum) + helper(root.right, target, curSum, preSum); 
+        preSum.put(curSum, preSum.get(curSum) - 1); 
+        return res; 
+    }
+}
 
 // O(nlogn) or O(n^2)
 public class Solution {

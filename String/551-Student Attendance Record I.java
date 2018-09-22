@@ -19,6 +19,29 @@ Output: False
 
 Solution: String. 
 */
+class Solution {
+    public boolean checkRecord(String s) {
+        if (s == null || s.length() == 0) {
+            return false; 
+        }
+        if (s.length() == 1) {
+            return true; 
+        }
+        int cntA = 0, cntL = 0, maxLen = 0; 
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == 'A') {
+                cntA++; 
+            }
+            if (s.charAt(i) == 'L') {
+                cntL++; 
+                maxLen = Math.max(maxLen, cntL); 
+            } else {
+                cntL = 0; 
+            }
+        }
+        return (maxLen <= 2) && (cntA <= 1); 
+    }
+}
 
 public class Solution {
     public boolean checkRecord(String s) {
