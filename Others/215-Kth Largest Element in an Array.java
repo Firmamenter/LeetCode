@@ -35,3 +35,34 @@ class Solution {
 }
 
 // Quick selection, O(n)
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        return helper(nums, 0, nums.length - 1, k); 
+    }
+    
+    private int helper(int[] nums, int start, int end, int k) {
+        int target = nums[end]; 
+        int idx = start - 1; 
+        for (int i = start; i < end; i++) {
+            if (nums[i] > target) {
+                idx++; 
+                swap(nums, i, idx); 
+            }
+        }
+        idx++; 
+        swap(nums, idx, end); 
+        if (idx - start + 1 == k) {
+            return nums[idx]; 
+        } else if (idx - start + 1 > k) {
+            return helper(nums, start, idx - 1, k); 
+        } else {
+            return helper(nums, idx + 1, end, k - idx + start - 1); 
+        }
+    }
+    
+    private void swap(int[] nums, int left, int right) {
+        int temp = nums[left]; 
+        nums[left] = nums[right]; 
+        nums[right] = temp; 
+    }
+}
