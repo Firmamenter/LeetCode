@@ -100,3 +100,31 @@ public class Solution {
         return result; 
     }
 }
+
+class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>(); 
+        if (root == null) {
+            return res; 
+        }
+        Set<TreeNode> isVisited = new HashSet<>(); 
+        Stack<TreeNode> stack = new Stack<>(); 
+        TreeNode cur = root; 
+        while (!stack.empty() || cur != null) {
+            while (cur != null) {
+                stack.push(cur); 
+                cur = cur.left; 
+            }
+            cur = stack.pop(); 
+            if (!isVisited.add(cur)) {
+                res.add(cur.val); 
+                isVisited.remove(cur); 
+                cur = null; 
+            } else {
+                stack.push(cur); 
+                cur = cur.right; 
+            }
+        }
+        return res; 
+    }
+}
