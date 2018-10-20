@@ -55,3 +55,34 @@ class Solution {
         return list; 
     }
 }
+
+class Solution {
+    public List<TreeNode> generateTrees(int n) {
+        if (n <= 0) {
+            return new ArrayList<TreeNode>(); 
+        }
+        return generator(1, n); 
+    }
+    
+    private List<TreeNode> generator(int start, int end) {
+        if (start > end) {
+            List<TreeNode> res = new ArrayList<>(); 
+            res.add(null); 
+            return res; 
+        }
+        List<TreeNode> list = new ArrayList<>(); 
+        for (int i = start; i <= end; i++) {
+            List<TreeNode> leftNodes = generator(start, i - 1); 
+            List<TreeNode> rightNodes = generator(i + 1, end); 
+            for (TreeNode leftNode : leftNodes) {
+                for (TreeNode rightNode : rightNodes) {
+                    TreeNode root = new TreeNode(i); 
+                    root.left = leftNode; 
+                    root.right = rightNode; 
+                    list.add(root); 
+                }
+            }
+        }
+        return list; 
+    }
+}
