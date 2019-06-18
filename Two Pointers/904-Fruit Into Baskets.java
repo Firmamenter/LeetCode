@@ -73,3 +73,39 @@ class Solution {
     }
 }
 
+class Solution {
+    public int totalFruit(int[] tree) {
+        int left = 0; 
+        int right = 0; 
+        int maxLen = 1; 
+        Map<Integer, Integer> map = new HashMap<>(); 
+        for (; right < tree.length; right++) {
+            if (map.containsKey(tree[right])) {
+                map.put(tree[right], right); 
+            } else {
+                if (map.size() < 2) {
+                    map.put(tree[right], right); 
+                } else {
+                    maxLen = Math.max(maxLen, right - left); 
+                    left = updateMap(map, tree[right], right); 
+                }
+            }
+        }
+        maxLen = Math.max(maxLen, right - left); 
+        return maxLen; 
+    }
+    
+    private int updateMap(Map<Integer, Integer> map, int value, int index) {
+        int left = 0; 
+        List<Integer> keySet = new ArrayList<>(map.keySet()); 
+        if (map.get(keySet.get(0)) > map.get(keySet.get(1))) {
+            left = map.get(keySet.get(1)) + 1; 
+            map.remove(keySet.get(1)); 
+        } else {
+            left = map.get(keySet.get(0)) + 1; 
+            map.remove(keySet.get(0)); 
+        }
+        map.put(value, index); 
+        return left; 
+    }
+}

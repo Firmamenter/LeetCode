@@ -66,3 +66,40 @@ class Solution {
         }
     }
 }
+
+class Solution {
+    public boolean isOneEditDistance(String s, String t) {
+        if (s == null || t == null || Math.abs(s.length() - t.length()) > 1 || s.equals(t)) {
+            return false; 
+        }
+        int sLen = s.length(); 
+        int tLen = t.length(); 
+        int sIdx = 0; 
+        int tIdx = 0; 
+        int cnt = 0; 
+        while (sIdx < sLen && tIdx < tLen) {
+            if (s.charAt(sIdx) == t.charAt(tIdx)) {
+                sIdx++; 
+                tIdx++; 
+            } else if (cnt < 1) {
+                cnt++; 
+                if (sLen > tLen) {
+                    sIdx++; 
+                } else if (sLen == tLen) {
+                    sIdx++; 
+                    tIdx++; 
+                } else {
+                    tIdx++; 
+                }
+            } else {
+                return false; 
+            }
+        }
+        if (sIdx == sLen && tIdx == tLen && cnt == 1 || sIdx == sLen && tIdx == tLen - 1 
+            || sIdx == sLen - 1 && tIdx == tLen) {
+            return true; 
+        } else {
+            return false; 
+        }
+    }
+}
