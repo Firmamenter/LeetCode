@@ -88,3 +88,24 @@ class Solution {
         return ans;
     }
 }
+
+// Last trial
+class Solution {
+    public List<Integer> partitionLabels(String S) {
+        int start = 0; 
+        int end = 0; 
+        List<Integer> result = new ArrayList<>(); 
+        for (int i = 0; i < S.length(); i++) {
+            end = Math.max(end, S.lastIndexOf(S.charAt(i))); 
+            if (i == end) {
+                result.add(end - start + 1); 
+                if (i + 1 < S.length()) {
+                    start = i + 1; 
+                    end = S.lastIndexOf(S.charAt(i + 1)); 
+                }
+                continue; 
+            }
+        }
+        return result; 
+    }
+}
