@@ -29,6 +29,48 @@ Sol: DFS with directed graph.
 */
 
 class Solution {
+    
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        if (numCourses <= 0 || prerequisites == null || (prerequisites.length > 0 && prerequisites[0].length != 2)) {
+            return false; 
+        }
+        Map<Integer, Set<Integer>> graph = new HashMap<>(); 
+        int[] visitState = new int[numCourses]; 
+        buildGraph(graph, visitState, prerequisites); 
+        boolean hasCircle = false; 
+        for (int i = 0; i < numCourses; i++) {
+            if (visitState[i] == 0) {
+                hasCircle = hasCircle || searchCircle(graph, visitState, i); 
+            }
+        }
+        return !hasCircle; 
+    }
+    
+    private void buildGraph(Map<Integer, Set<Integer>> graph, int[] visitState, int[][] prerequisites) {
+        for (int[] edge : prerequisites) {
+            graph.putIfAbsent(edge[1], new HashSet<Integer>()); 
+            graph.get(edge[1]).add(edge[0]); 
+        }
+    }
+    
+    private boolean searchCircle(Map<Integer, Set<Integer>> graph, int[] visitState, int startPoint) {
+        visitState[startPoint] = -1; 
+        boolean hasCircle = false; 
+        if (graph.containsKey(startPoint)) {
+            for (int nextPoint : graph.get(startPoint)) {
+                if (visitState[nextPoint] == -1) {
+                    return true; 
+                } else if (visitState[nextPoint] == 0) {
+                    hasCircle = hasCircle || searchCircle(graph, visitState, nextPoint); 
+                }
+            }
+        }
+        visitState[startPoint] = 1; 
+        return hasCircle; 
+    }
+}
+
+class Solution {
     private class Course {
         int id; 
         List<Integer> nextCourses; 
