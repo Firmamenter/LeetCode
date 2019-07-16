@@ -106,3 +106,88 @@ class LRUCache {
  * int param_1 = obj.get(key);
  * obj.put(key,value);
  */
+
+class LRUCache {
+    
+    private class Node {
+        int key; 
+        int val; 
+        Node pre; 
+        Node next; 
+        
+        Node(int key, int val) {
+            this.key = key; 
+            this.val = val; 
+        }
+    } 
+    
+    private int tail; 
+    private int head; 
+    private int capacity; 
+    private Map<Integer, Node> map; 
+
+    public LRUCache(int capacity) {
+        this.capacity = capacity; 
+        map = new HashMap<Integer, Node>(); 
+    }
+    
+    public int get(int key) {
+        if (!map.containsKey(key)) {
+            return -1; 
+        } else {
+            if (head == key) {
+                return map.get(key).val; 
+            } else {
+                Node target = map.get(key); 
+                if (target.key == tail) {
+                    tail = target.next.key; 
+                    target.next.pre = null; 
+                    target.next = null; 
+                    Node header = map.get(head); 
+                    target.pre = header; 
+                    header.next = target; 
+                    head = target.key; 
+                } else {
+                    Node preNode = target.pre; 
+                    Node nextNode = target.next; 
+                    preNode.next = nextNode;
+                    nextNode.pre = preNode; 
+                    Node header = map.get(head); 
+                    header.next = target; 
+                    target.pre = header; 
+                    target.next = null; 
+                    head = target.key; 
+                }
+                return target.val; 
+            }
+        }
+    }
+    
+    public void put(int key, int value) {
+        if (map.size() == 0) {
+            tail = key; 
+            head = key; 
+            Node newNode = new Node(key, value); 
+            map.put(key, newNode); 
+            return; 
+        }
+        if (!map.containsKey(key)) {
+            Node newNode = new Node(key, value); 
+            Node header = map.get(head); 
+            header.next = newNode; 
+            newNode.pre = header; 
+            head = key; 
+            map.put(key, newNode); 
+            if (map.size() > capacity) {
+                Node tailer = map.get(tail); 
+                tail = tailer.next.key; 
+                tailer.next.pre = null; 
+                tailer.next = null; 
+                map.remove(tailer.key); 
+            }
+        } else {
+            get(key); 
+            map.get(head).val = value; 
+        }
+    }
+}
